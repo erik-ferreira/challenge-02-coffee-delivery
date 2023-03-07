@@ -33,6 +33,9 @@ module.exports = {
           50: "#FAFAFA",
         },
       },
+      backgroundImage: {
+        "img-opacity": "url(./src/assets/background.svg)",
+      },
     },
   },
   plugins: [],
