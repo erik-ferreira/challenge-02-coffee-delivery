@@ -3,21 +3,36 @@ import { MapPin, ShoppingCart } from "phosphor-react";
 import logoPng from "../assets/logo.png";
 
 export function Header() {
+  const totalItemsCart = 0;
+
   return (
-    <header className="h-28 flex items-center justify-between px-40">
-      <img src={logoPng} className="h-10" />
+    <header className="py-8">
+      <div className=" max-w-[1120px] w-[90%] mx-auto flex items-center justify-between">
+        <img src={logoPng} />
 
-      <div className="flex items-center justify-between gap-3">
-        <div className="h-9 flex items-center justify-between gap-1 bg-violet-200 p-2 rounded-md">
-          <MapPin size={24} color="#8047F8" weight="fill" />
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between gap-1 bg-violet-200 p-2 rounded-md">
+            <MapPin size={24} weight="fill" className="fill-violet-600" />
+            <span className="font-sans text-sm leading-[1.3] text-violet-900">
+              Porto Alegre, RS
+            </span>
+          </div>
 
-          <span className="text-violet-900 text-sm leading-[1.3]">
-            Porto Alegre, RS
-          </span>
-        </div>
+          <div className="relative">
+            <button className="p-2 rounded-md bg-yellow-100 flex items-center justify-center">
+              <ShoppingCart
+                size={24}
+                weight="fill"
+                className="fill-yellow-600"
+              />
+            </button>
 
-        <div className="w-9 h-9 rounded-md bg-yellow-100 flex items-center justify-center">
-          <ShoppingCart size={24} color="#C47F17" weight="fill" />
+            {totalItemsCart > 0 && (
+              <span className="absolute -top-2 -right-2 w-5 h-5 bg-yellow-600 rounded-full flex items-center justify-center text-white font-sans font-bold text-xs">
+                {totalItemsCart}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </header>
