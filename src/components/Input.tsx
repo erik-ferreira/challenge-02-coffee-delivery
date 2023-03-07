@@ -6,15 +6,13 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export function Input({ isOptional, ...rest }: InputProps) {
   return (
-    <div className={`w-52 h-12 ${isOptional ? "flex-1 relative" : ""}`}>
+    <div className="w-52 h-11 bg-gray-150 flex items-center rounded border border-solid border-gray-200">
       <input
-        className="w-full h-full p-3 border border-solid border-gray-200 rounded bg-gray-150 outline-none focus:border-yellow-600 font-sans text-sm leading-[1.3] text-brow-500"
+        className="w-full h-full rounded bg-transparent placeholder-brow-400 text-brow-500 text-sm font-sans leading-[1.3] outline-none px-3 focus:border-yellow-600"
         {...rest}
       />
       {isOptional && (
-        <span className="absolute top-[16px] right-[12px] text-brow-400 text-xs leading-[1.3] italic">
-          Opcional
-        </span>
+        <span className="mr-3 text-brow-500 italic text-xs">Opcional</span>
       )}
     </div>
   );
