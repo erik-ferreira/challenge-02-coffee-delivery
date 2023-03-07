@@ -1,10 +1,7 @@
 import "./styles/global.css";
 
+import { Button } from "./components/Button";
+
 export function App() {
-  return (
-    <>
-      <h1 className="font-bold bg-yellow-400">Hello world</h1>
-      <span className="font-bold font-cursive">Complete seu pedido</span>
-    </>
-  );
+  return <Button label="CONFIRMAR PEDIDO" />;
 }
