@@ -7,7 +7,7 @@ export function Header() {
 
   return (
     <header className="py-8">
-      <div className=" max-w-[1120px] w-[90%] mx-auto flex items-center justify-between">
+      <div className="max-w-[1120px] w-[90%] mx-auto flex items-center justify-between">
         <img src={logoPng} />
 
         <div className="flex items-center gap-3">
