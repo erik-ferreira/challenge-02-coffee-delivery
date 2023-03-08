@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { MapPin, ShoppingCart } from "phosphor-react";
 
 import logoPng from "../assets/logo.png";
@@ -8,7 +9,9 @@ export function Header() {
   return (
     <header className="py-8">
       <div className="max-w-[1120px] w-[90%] mx-auto flex items-center justify-between">
-        <img src={logoPng} />
+        <Link to="/">
+          <img src={logoPng} />
+        </Link>
 
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-between gap-1 bg-violet-200 p-2 rounded-md">
@@ -19,13 +22,16 @@ export function Header() {
           </div>
 
           <div className="relative">
-            <button className="p-2 rounded-md bg-yellow-100 flex items-center justify-center">
+            <Link
+              to="/checkout"
+              className="p-2 rounded-md bg-yellow-100 flex items-center justify-center"
+            >
               <ShoppingCart
                 size={24}
                 weight="fill"
                 className="fill-yellow-600"
               />
-            </button>
+            </Link>
 
             {totalItemsCart > 0 && (
               <span className="absolute -top-2 -right-2 w-5 h-5 bg-yellow-600 rounded-full flex items-center justify-center text-white font-sans font-bold text-xs">

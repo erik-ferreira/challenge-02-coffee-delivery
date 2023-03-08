@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   MapPinLine,
   CurrencyDollar,
@@ -16,6 +17,8 @@ import { CoffeeCardOnCart } from "../components/CoffeeCardOnCart";
 type TypePaymentOptions = "credit" | "debit" | "money";
 
 export function Checkout() {
+  const navigate = useNavigate();
+
   const [typePaymentSelected, setTypePaymentSelected] =
     useState<TypePaymentOptions>("credit");
 
@@ -116,7 +119,10 @@ export function Checkout() {
             </span>
           </div>
 
-          <Button label="Confirmar Pedido" />
+          <Button
+            label="Confirmar Pedido"
+            onClick={() => navigate("/success")}
+          />
         </div>
       </SectionCheckout>
     </div>
