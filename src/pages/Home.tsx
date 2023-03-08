@@ -1,50 +1,12 @@
-import { ShoppingCart, Package, Coffee, Timer } from "phosphor-react";
-
 import { Tag } from "../components/Tag";
 import { Topic } from "../components/Topic";
 import { CoffeeCard } from "../components/CoffeeCard";
 
 import coffeeBackground from "../assets/coffee.png";
-import { useEffect } from "react";
+
+import { listTopics, listFilterCoffee, coffees } from "../utils/defaults";
 
 export function Home() {
-  const listCoffees = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-
-  const listFilterCoffee = [
-    "Tradicional",
-    "Especial",
-    "Com Leite",
-    "Alcoólico",
-    "Gelado",
-  ];
-
-  const listTopics = [
-    {
-      id: 1,
-      label: "Compra simples e segura",
-      icon: ShoppingCart,
-      bgColor: "bg-yellow-600",
-    },
-    {
-      id: 2,
-      label: "Embalagem mantém o café intacto",
-      icon: Package,
-      bgColor: "bg-brow-500",
-    },
-    {
-      id: 3,
-      label: "Entrega rápida e rastreada",
-      icon: Timer,
-      bgColor: "bg-yellow-500",
-    },
-    {
-      id: 4,
-      label: "O café chega fresquinho até você",
-      icon: Coffee,
-      bgColor: "bg-violet-600",
-    },
-  ];
-
   return (
     <>
       <div className="bg-img-opacity">
@@ -91,8 +53,8 @@ export function Home() {
         </div>
 
         <div className="grid grid-cols-4 gap-10">
-          {listCoffees.map((coffee) => (
-            <CoffeeCard key={coffee} />
+          {coffees.map((coffee) => (
+            <CoffeeCard key={coffee.id} coffee={coffee} />
           ))}
         </div>
       </div>
