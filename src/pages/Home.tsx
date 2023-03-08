@@ -1,11 +1,20 @@
 import { ShoppingCart, Package, Coffee, Timer } from "phosphor-react";
 
+import { Tag } from "../components/Tag";
 import { CoffeeCard } from "../components/CoffeeCard";
 
 import coffeeBackground from "../assets/coffee.png";
 
 export function Home() {
   const listCoffees = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+  const listFilterCoffee = [
+    "Tradicional",
+    "Especial",
+    "Com Leite",
+    "Alcoólico",
+    "Gelado",
+  ];
 
   return (
     <div className="pb-40">
@@ -71,21 +80,9 @@ export function Home() {
           </h2>
 
           <div className="flex items-center gap-2">
-            <span className="uppercase bg-yellow-100 rounded-full font-sans font-bold text-[10px] leading-[1.3] text-yellow-600 px-2 py-1">
-              Tradicional
-            </span>
-            <span className="uppercase bg-yellow-100 rounded-full font-sans font-bold text-[10px] leading-[1.3] text-yellow-600 px-2 py-1">
-              Especial
-            </span>
-            <span className="uppercase bg-yellow-100 rounded-full font-sans font-bold text-[10px] leading-[1.3] text-yellow-600 px-2 py-1">
-              Com Leite
-            </span>
-            <span className="uppercase bg-yellow-100 rounded-full font-sans font-bold text-[10px] leading-[1.3] text-yellow-600 px-2 py-1">
-              Alcoólico
-            </span>
-            <span className="uppercase bg-yellow-100 rounded-full font-sans font-bold text-[10px] leading-[1.3] text-yellow-600 px-2 py-1">
-              Gelado
-            </span>
+            {listFilterCoffee.map((typeCoffee) => (
+              <Tag key={typeCoffee} label={typeCoffee} variant="outline" />
+            ))}
           </div>
         </div>
 

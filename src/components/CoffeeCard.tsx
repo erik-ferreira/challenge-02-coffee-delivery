@@ -1,5 +1,7 @@
 import { ShoppingCart, Plus, Minus } from "phosphor-react";
 
+import { Tag } from "./Tag";
+
 import coffeeAmerican from "../assets/coffees/americano.png";
 
 export function CoffeeCard() {
@@ -11,9 +13,7 @@ export function CoffeeCard() {
           className="w-[7.5rem] h-[7.5rem] -mt-5 mb-3"
         />
 
-        <span className="uppercase bg-yellow-100 rounded-full font-sans font-bold text-[10px] leading-[1.3] text-yellow-600 px-2 py-1">
-          Tradicional
-        </span>
+        <Tag label="Tradicional" />
       </header>
 
       <main>
