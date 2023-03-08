@@ -2,7 +2,7 @@ import { Trash } from "phosphor-react";
 
 import { QuantityCoffee } from "./QuantityCoffee";
 
-import americanPNG from "../assets/coffees/americano.png";
+import americanPNG from "../assets/coffees/american.png";
 
 export function CoffeeCardOnCart() {
   return (

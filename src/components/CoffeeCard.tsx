@@ -3,7 +3,7 @@ import { ShoppingCart } from "phosphor-react";
 import { Tag } from "./Tag";
 import { QuantityCoffee } from "./QuantityCoffee";
 
-import coffeeAmerican from "../assets/coffees/americano.png";
+import coffeeAmerican from "../assets/coffees/american.png";
 
 export function CoffeeCard() {
   return (
