@@ -17,7 +17,7 @@ export function Home() {
   ];
 
   return (
-    <div className="pb-40">
+    <>
       <div className="bg-img-opacity">
         <div className="max-w-[1120px] w-[90%] mx-auto py-20 flex items-center gap-14">
           <div>
@@ -92,6 +92,6 @@ export function Home() {
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 }
