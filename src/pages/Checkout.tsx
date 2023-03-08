@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   MapPinLine,
   CurrencyDollar,
@@ -11,10 +12,21 @@ import {
 
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
+import { TypePayment } from "../components/TypePayment";
+import { QuantityCoffee } from "../components/QuantityCoffee";
 
 import americanPNG from "../assets/coffees/americano.png";
 
+type TypePaymentOptions = "credit" | "debit" | "money";
+
 export function Checkout() {
+  const [typePaymentSelected, setTypePaymentSelected] =
+    useState<TypePaymentOptions>("credit");
+
+  function handleChangeTypePayment(typePayment: TypePaymentOptions) {
+    setTypePaymentSelected(typePayment);
+  }
+
   return (
     <div className="flex gap-8 max-w-[1120px] w-[90%] mx-auto">
       <div>
@@ -63,20 +75,24 @@ export function Checkout() {
           </p>
 
           <div className="flex gap-3 mt-8">
-            <button className="bg-gray-200 rounded-md p-4 flex gap-3 items-center text-brow-500 font-sans text-xs uppercase">
-              <CreditCard size={16} className="text-violet-600 " />
-              CARTÃO DE CRÉDITO
-            </button>
-
-            <button className="bg-gray-200 rounded-md p-4 flex gap-3 items-center text-brow-500 font-sans text-xs uppercase">
-              <Money size={16} className="text-violet-600 " />
-              CARTÃO DE DÉBITO
-            </button>
-
-            <button className="bg-gray-200 rounded-md p-4 flex gap-3 items-center text-brow-500 font-sans text-xs uppercase">
-              <Bank size={16} className="text-violet-600 " />
-              DINHEIRO
-            </button>
+            <TypePayment
+              label="CARTÃO DE CRÉDITO"
+              icon={CreditCard}
+              isTypePaymentSelected={typePaymentSelected === "credit"}
+              onClick={() => handleChangeTypePayment("credit")}
+            />
+            <TypePayment
+              label=" CARTÃO DE DÉBITO"
+              icon={Money}
+              isTypePaymentSelected={typePaymentSelected === "debit"}
+              onClick={() => handleChangeTypePayment("debit")}
+            />
+            <TypePayment
+              label="DINHEIRO"
+              icon={Bank}
+              isTypePaymentSelected={typePaymentSelected === "money"}
+              onClick={() => handleChangeTypePayment("money")}
+            />
           </div>
         </div>
       </div>
@@ -96,19 +112,7 @@ export function Checkout() {
               </span>
 
               <div className="flex gap-2">
-                <div className="w-20 h-10 rounded-md bg-gray-200 flex items-center justify-center gap-2 ">
-                  <button>
-                    <Minus size={14} className="text-violet-600" />
-                  </button>
-
-                  <span className="font-sans text-base leading-[1.3] text-brow-900">
-                    1
-                  </span>
-
-                  <button>
-                    <Plus size={14} className="text-violet-600" />
-                  </button>
-                </div>
+                <QuantityCoffee />
 
                 <button className="bg-gray-200 rounded-md p-2 flex items-center gap-1 font-sans text-xs uppercase text-brow-500">
                   <Trash size={14} className="text-violet-600" />
@@ -124,7 +128,7 @@ export function Checkout() {
 
           <div className="h-[1px] w-full bg-gray-200" />
 
-          <div className="flex gap-5">
+          {/* <div className="flex gap-5">
             <img src={americanPNG} className="w-16 h-16" />
 
             <div className="flex gap-2 flex-col">
@@ -157,7 +161,7 @@ export function Checkout() {
             <span className="font-sans text-base font-bold text-brow-500">
               R$ 9,90
             </span>
-          </div>
+          </div> */}
 
           <div className="h-[1px] w-full bg-gray-200" />
 
