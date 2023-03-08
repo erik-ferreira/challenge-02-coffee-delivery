@@ -5,17 +5,13 @@ import {
   CreditCard,
   Money,
   Bank,
-  Minus,
-  Plus,
-  Trash,
 } from "phosphor-react";
 
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { TypePayment } from "../components/TypePayment";
-import { QuantityCoffee } from "../components/QuantityCoffee";
-
-import americanPNG from "../assets/coffees/americano.png";
+import { SectionCheckout } from "../components/SectionCheckout";
+import { CoffeeCardOnCart } from "../components/CoffeeCardOnCart";
 
 type TypePaymentOptions = "credit" | "debit" | "money";
 
@@ -29,11 +25,7 @@ export function Checkout() {
 
   return (
     <div className="flex gap-8 max-w-[1120px] w-[90%] mx-auto">
-      <div>
-        <h2 className="font-cursive font-bold text-lg text-brow-600 mb-4">
-          Complete seu pedido
-        </h2>
-
+      <SectionCheckout title="Complete seu pedido">
         <div className="bg-gray-100 rounded-md p-10">
           <div className="flex gap-2">
             <MapPinLine size={24} className="text-yellow-600 " />
@@ -95,73 +87,15 @@ export function Checkout() {
             />
           </div>
         </div>
-      </div>
+      </SectionCheckout>
 
-      <div>
-        <h2 className="font-cursive font-bold text-lg text-brow-600 mb-4">
-          Cafés selecionados
-        </h2>
-
+      <SectionCheckout title="Cafés selecionados">
         <div className="bg-gray-100 p-10 w-[448px] rounded-tl-md rounded-tr-[44px] rounded-br-md rounded-bl-[44px] flex justify-center flex-col gap-6">
-          <div className="flex gap-5">
-            <img src={americanPNG} className="w-16 h-16" />
-
-            <div className="flex gap-2 flex-col">
-              <span className="font-sans text-base text-brow-600">
-                Expresso Tradicional
-              </span>
-
-              <div className="flex gap-2">
-                <QuantityCoffee />
-
-                <button className="bg-gray-200 rounded-md p-2 flex items-center gap-1 font-sans text-xs uppercase text-brow-500">
-                  <Trash size={14} className="text-violet-600" />
-                  Remover
-                </button>
-              </div>
-            </div>
-
-            <span className="font-sans text-base font-bold text-brow-500">
-              R$ 9,90
-            </span>
-          </div>
+          <CoffeeCardOnCart />
 
           <div className="h-[1px] w-full bg-gray-200" />
 
-          {/* <div className="flex gap-5">
-            <img src={americanPNG} className="w-16 h-16" />
-
-            <div className="flex gap-2 flex-col">
-              <span className="font-sans text-base text-brow-600">
-                Expresso Tradicional
-              </span>
-
-              <div className="flex gap-2">
-                <div className="w-20 h-10 rounded-md bg-gray-200 flex items-center justify-center gap-2 ">
-                  <button>
-                    <Minus size={14} className="text-violet-600" />
-                  </button>
-
-                  <span className="font-sans text-base leading-[1.3] text-brow-900">
-                    1
-                  </span>
-
-                  <button>
-                    <Plus size={14} className="text-violet-600" />
-                  </button>
-                </div>
-
-                <button className="bg-gray-200 rounded-md p-2 flex items-center gap-1 font-sans text-xs uppercase text-brow-500">
-                  <Trash size={14} className="text-violet-600" />
-                  Remover
-                </button>
-              </div>
-            </div>
-
-            <span className="font-sans text-base font-bold text-brow-500">
-              R$ 9,90
-            </span>
-          </div> */}
+          <CoffeeCardOnCart />
 
           <div className="h-[1px] w-full bg-gray-200" />
 
@@ -184,7 +118,7 @@ export function Checkout() {
 
           <Button label="Confirmar Pedido" />
         </div>
-      </div>
+      </SectionCheckout>
     </div>
   );
 }

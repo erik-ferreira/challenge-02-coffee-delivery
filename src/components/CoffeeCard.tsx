@@ -1,6 +1,7 @@
-import { ShoppingCart, Plus, Minus } from "phosphor-react";
+import { ShoppingCart } from "phosphor-react";
 
 import { Tag } from "./Tag";
+import { QuantityCoffee } from "./QuantityCoffee";
 
 import coffeeAmerican from "../assets/coffees/americano.png";
 
@@ -34,21 +35,13 @@ export function CoffeeCard() {
           </span>
         </span>
 
-        <div className="w-20 h-10 rounded-md bg-gray-200 flex items-center justify-center gap-2 mr-2">
-          <button>
-            <Minus size={14} className="text-violet-600" />
-          </button>
+        <QuantityCoffee className="mr-2" />
 
-          <span className="font-sans text-base leading-[1.3] text-brow-900">
-            1
-          </span>
-
-          <button>
-            <Plus size={14} className="text-violet-600" />
-          </button>
-        </div>
-
-        <button className="p-2 rounded-md bg-violet-900 flex items-center justify-center">
+        <button
+          className="p-2 rounded-md bg-violet-900 
+          hover:bg-violet-600 transition-colors
+          flex items-center justify-center"
+        >
           <ShoppingCart size={24} weight="fill" className="fill-white" />
         </button>
       </footer>

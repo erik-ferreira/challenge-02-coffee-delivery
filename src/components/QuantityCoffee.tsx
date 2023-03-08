@@ -1,8 +1,14 @@
+import { HTMLAttributes } from "react";
 import { Minus, Plus } from "phosphor-react";
 
-export function QuantityCoffee() {
+interface QuantityCoffeeProps extends HTMLAttributes<HTMLDivElement> {}
+
+export function QuantityCoffee({ className, ...rest }: QuantityCoffeeProps) {
   return (
-    <div className="w-20 h-10 rounded-md bg-gray-200 flex items-center justify-center gap-2 ">
+    <div
+      className={`w-20 h-10 rounded-md bg-gray-200 flex items-center justify-center gap-2 ${className}`}
+      {...rest}
+    >
       <button className="text-violet-600 enabled:hover:text-violet-900">
         <Minus size={14} />
       </button>
