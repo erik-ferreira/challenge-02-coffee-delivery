@@ -12,11 +12,6 @@ interface CoffeeCartProps extends CoffeeProps {
   quantity: number;
 }
 
-interface IncreaseAndDecreaseQuantityCoffeeProps {
-  coffeeId: number;
-  quantity: number;
-}
-
 interface CartContextData {
   cart: CoffeeCartProps[];
 

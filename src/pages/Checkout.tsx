@@ -16,11 +16,20 @@ import { CoffeeCardOnCart } from "../components/CoffeeCardOnCart";
 
 import { useCart } from "../contexts/CartContext";
 
+import { formatPrice } from "../utils/format";
+
 type TypePaymentOptions = "credit" | "debit" | "money";
 
 export function Checkout() {
   const navigate = useNavigate();
   const { cart } = useCart();
+
+  const totalPriceItems = cart.reduce(
+    (acc, coffee) => acc + coffee.price * coffee.quantity,
+    0
+  );
+  const deliveryFee = 3.5;
+  const total = totalPriceItems + deliveryFee;
 
   const [typePaymentSelected, setTypePaymentSelected] =
     useState<TypePaymentOptions>("credit");
@@ -98,26 +107,23 @@ export function Checkout() {
       <SectionCheckout title="Cafés selecionados">
         <div className="bg-gray-100 p-10 w-[448px] rounded-tl-md rounded-tr-[44px] rounded-br-md rounded-bl-[44px] flex justify-center flex-col gap-6">
           {cart.map((coffeeInCart) => (
-            <>
-              <CoffeeCardOnCart key={coffeeInCart.id} coffee={coffeeInCart} />
-              <div className="h-[1px] w-full bg-gray-200" />
-            </>
+            <CoffeeCardOnCart key={coffeeInCart.id} coffee={coffeeInCart} />
           ))}
 
           <div className="flex flex-col gap-3">
             <span className="font-sans text-sm text-brow-500 flex items-center justify-between">
               Total de itens
-              <span>R$ 29,70</span>
+              <span>R$ {formatPrice(totalPriceItems)}</span>
             </span>
 
             <span className="font-sans text-sm text-brow-500 flex items-center justify-between">
               Entrega
-              <span>R$ 3,50</span>
+              <span>R$ {formatPrice(deliveryFee)}</span>
             </span>
 
             <span className="font-sans font-bold text-xl text-brow-500 flex items-center justify-between">
               Total
-              <span>R$ 33,20</span>
+              <span>R$ {formatPrice(total)}</span>
             </span>
           </div>
 
