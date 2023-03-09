@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  MapPinLine,
-  CurrencyDollar,
-  CreditCard,
-  Money,
-  Bank,
-} from "phosphor-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, FormProvider } from "react-hook-form";
+import { CurrencyDollar, CreditCard, Money, Bank } from "phosphor-react";
 
-import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { TypePayment } from "../components/TypePayment";
 import { SectionCheckout } from "../components/SectionCheckout";
 import { CoffeeCardOnCart } from "../components/CoffeeCardOnCart";
+import {
+  FormAddress,
+  addressFormSchema,
+  AddressFormData,
+} from "../components/FormAddress";
 
 import { useCart } from "../contexts/CartContext";
 
@@ -24,6 +24,8 @@ export function Checkout() {
   const navigate = useNavigate();
   const { cart } = useCart();
 
+  const [typePaymentSelected, setTypePaymentSelected] =
+    useState<TypePaymentOptions>("credit");
   const totalPriceItems = cart.reduce(
     (acc, coffee) => acc + coffee.price * coffee.quantity,
     0
@@ -31,45 +33,28 @@ export function Checkout() {
   const deliveryFee = 3.5;
   const total = totalPriceItems + deliveryFee;
 
-  const [typePaymentSelected, setTypePaymentSelected] =
-    useState<TypePaymentOptions>("credit");
+  const addressForm = useForm<AddressFormData>({
+    resolver: zodResolver(addressFormSchema),
+  });
+  const { handleSubmit } = addressForm;
+
+  function handleSubmitFormAddress(data: any) {
+    console.log(data);
+  }
 
   function handleChangeTypePayment(typePayment: TypePaymentOptions) {
     setTypePaymentSelected(typePayment);
   }
 
   return (
-    <div className="flex gap-8 max-w-[1120px] w-[90%] mx-auto">
+    <form
+      className="flex gap-8 max-w-[1120px] w-[90%] mx-auto"
+      onSubmit={handleSubmit(handleSubmitFormAddress)}
+    >
       <SectionCheckout title="Complete seu pedido">
-        <div className="bg-gray-100 rounded-md p-10">
-          <div className="flex gap-2">
-            <MapPinLine size={24} className="text-yellow-600 " />
-            <span className="font-sans text-base text-brow-600">
-              Endereço de entrega
-            </span>
-          </div>
-
-          <p className="font-sans text-sm text-brow-500 ml-8">
-            Informe o endereço onde deseja receber seu pedido
-          </p>
-
-          <div className="mt-8 flex flex-col gap-4">
-            <Input placeholder="CEP" />
-
-            <Input placeholder="Rua" variantWidth="max" />
-
-            <div className="flex gap-3">
-              <Input placeholder="Número" />
-              <Input placeholder="Complemento" isOptional variantWidth="flex" />
-            </div>
-
-            <div className="flex gap-3">
-              <Input placeholder="Bairro" />
-              <Input placeholder="Cidade" />
-              <Input placeholder="UF" variantWidth="min" />
-            </div>
-          </div>
-        </div>
+        <FormProvider {...addressForm}>
+          <FormAddress />
+        </FormProvider>
 
         <div className="bg-gray-100 rounded-md p-10 mt-3">
           <div className="flex gap-2">
@@ -128,11 +113,12 @@ export function Checkout() {
           </div>
 
           <Button
+            type="submit"
             label="Confirmar Pedido"
-            onClick={() => navigate("/success")}
+            // onClick={() => navigate("/success")}
           />
         </div>
       </SectionCheckout>
-    </div>
+    </form>
   );
 }
