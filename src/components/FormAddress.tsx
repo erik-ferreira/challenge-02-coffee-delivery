@@ -21,8 +21,6 @@ export function FormAddress() {
     formState: { errors },
   } = useFormContext<AddressFormData>();
 
-  console.log("errors", errors);
-
   return (
     <div className="bg-gray-100 rounded-md p-10">
       <div className="flex gap-2">

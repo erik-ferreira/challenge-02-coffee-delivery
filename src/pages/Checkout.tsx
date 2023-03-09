@@ -40,6 +40,8 @@ export function Checkout() {
 
   function handleSubmitFormAddress(data: any) {
     console.log(data);
+
+    navigate("/success");
   }
 
   function handleChangeTypePayment(typePayment: TypePaymentOptions) {
@@ -112,11 +114,7 @@ export function Checkout() {
             </span>
           </div>
 
-          <Button
-            type="submit"
-            label="Confirmar Pedido"
-            // onClick={() => navigate("/success")}
-          />
+          <Button type="submit" label="Confirmar Pedido" />
         </div>
       </SectionCheckout>
     </form>
