@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ShoppingCart } from "phosphor-react";
 
 import { Tag } from "./Tag";
@@ -21,6 +22,22 @@ interface CoffeeCardProps {
 
 export function CoffeeCard({ coffee }: CoffeeCardProps) {
   const { addCoffeeInCart } = useCart();
+
+  const [quantityCoffee, setQuantityCoffee] = useState(1);
+
+  function handleDecreaseQuantity() {
+    if (quantityCoffee > 1) {
+      setQuantityCoffee((prevQuantity) => prevQuantity - 1);
+    }
+  }
+
+  function handleIncreaseQuantity() {
+    setQuantityCoffee((prevQuantity) => prevQuantity + 1);
+  }
+
+  function handleAddCoffeeInCart() {
+    addCoffeeInCart({ ...coffee, quantity: quantityCoffee });
+  }
 
   return (
     <div className="w-64 h-[310px] bg-gray-100 rounded-tl-md rounded-tr-[2.25rem] rounded-br-md rounded-bl-[2.25rem] flex flex-col items-center pb-5 px-6">
@@ -51,13 +68,18 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
           </span>
         </span>
 
-        <QuantityCoffee className="mr-2" />
+        <QuantityCoffee
+          className="mr-2"
+          quantity={quantityCoffee}
+          onDecreaseQuantity={handleDecreaseQuantity}
+          onIncreaseQuantity={handleIncreaseQuantity}
+        />
 
         <button
           className="p-2 rounded-md bg-violet-900 
           hover:bg-violet-600 transition-colors
           flex items-center justify-center"
-          onClick={() => addCoffeeInCart({ ...coffee, quantity: 2 })}
+          onClick={handleAddCoffeeInCart}
         >
           <ShoppingCart size={24} weight="fill" className="fill-white" />
         </button>
