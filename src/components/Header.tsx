@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { MapPin, ShoppingCart } from "phosphor-react";
 
+import { useCart } from "../contexts/CartContext";
+
 import logoPng from "../assets/logo.png";
 
 export function Header() {
-  const totalItemsCart = 0;
+  const { cart } = useCart();
+
+  const totalCoffeesInCart = cart.length;
 
   return (
     <header className="py-8">
@@ -33,9 +37,9 @@ export function Header() {
               />
             </Link>
 
-            {totalItemsCart > 0 && (
+            {totalCoffeesInCart > 0 && (
               <span className="absolute -top-2 -right-2 w-5 h-5 bg-yellow-600 rounded-full flex items-center justify-center text-white font-sans font-bold text-xs">
-                {totalItemsCart}
+                {totalCoffeesInCart}
               </span>
             )}
           </div>

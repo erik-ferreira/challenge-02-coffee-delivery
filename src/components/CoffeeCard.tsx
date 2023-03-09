@@ -3,10 +3,13 @@ import { ShoppingCart } from "phosphor-react";
 import { Tag } from "./Tag";
 import { QuantityCoffee } from "./QuantityCoffee";
 
+import { useCart } from "../contexts/CartContext";
+
 import { formatPrice } from "../utils/format";
 import coffeeAmerican from "../assets/coffees/american.png";
 
-interface CoffeeProps {
+export interface CoffeeProps {
+  id: number;
   name: string;
   description: string;
   price: number;
@@ -17,6 +20,8 @@ interface CoffeeCardProps {
 }
 
 export function CoffeeCard({ coffee }: CoffeeCardProps) {
+  const { addCoffeeInCart } = useCart();
+
   return (
     <div className="w-64 h-[310px] bg-gray-100 rounded-tl-md rounded-tr-[2.25rem] rounded-br-md rounded-bl-[2.25rem] flex flex-col items-center pb-5 px-6">
       <header className="mb-4 flex flex-col items-center">
@@ -52,6 +57,7 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
           className="p-2 rounded-md bg-violet-900 
           hover:bg-violet-600 transition-colors
           flex items-center justify-center"
+          onClick={() => addCoffeeInCart({ ...coffee, quantity: 2 })}
         >
           <ShoppingCart size={24} weight="fill" className="fill-white" />
         </button>
