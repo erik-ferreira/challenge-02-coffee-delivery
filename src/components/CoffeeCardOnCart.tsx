@@ -18,7 +18,11 @@ interface CoffeeCardOnCartProps {
 }
 
 export function CoffeeCardOnCart({ coffee }: CoffeeCardOnCartProps) {
-  const { increaseQuantityCoffee, decreaseQuantityCoffee } = useCart();
+  const {
+    increaseQuantityCoffee,
+    decreaseQuantityCoffee,
+    removeCoffeeFromCart,
+  } = useCart();
 
   function handleDecreaseQuantity() {
     decreaseQuantityCoffee(coffee.id);
@@ -26,6 +30,10 @@ export function CoffeeCardOnCart({ coffee }: CoffeeCardOnCartProps) {
 
   function handleIncreaseQuantity() {
     increaseQuantityCoffee(coffee.id);
+  }
+
+  function handleRemoveCoffeeFromCart() {
+    removeCoffeeFromCart(coffee.id);
   }
 
   return (
@@ -45,7 +53,10 @@ export function CoffeeCardOnCart({ coffee }: CoffeeCardOnCartProps) {
               onIncreaseQuantity={handleIncreaseQuantity}
             />
 
-            <button className="bg-gray-200 rounded-md p-2 flex items-center gap-1 font-sans text-xs uppercase text-brow-500">
+            <button
+              className="bg-gray-200 rounded-md p-2 flex items-center gap-1 font-sans text-xs uppercase text-brow-500"
+              onClick={handleRemoveCoffeeFromCart}
+            >
               <Trash size={14} className="text-violet-600" />
               Remover
             </button>

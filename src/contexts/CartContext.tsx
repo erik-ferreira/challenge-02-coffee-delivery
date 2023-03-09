@@ -18,6 +18,7 @@ interface CartContextData {
   addCoffeeInCart: (coffee: CoffeeCartProps) => void;
   increaseQuantityCoffee: (coffeeId: number) => void;
   decreaseQuantityCoffee: (coffeeId: number) => void;
+  removeCoffeeFromCart: (coffeeId: number) => void;
 }
 
 export const CartContext = createContext({} as CartContextData);
@@ -99,6 +100,14 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     setCart(newCoffeesInCart);
   }
 
+  function removeCoffeeFromCart(coffeeId: number) {
+    const newListCoffeesInCart = cart.filter(
+      (coffeeInCart) => coffeeInCart.id !== coffeeId
+    );
+
+    setCart(newListCoffeesInCart);
+  }
+
   useEffect(() => {
     console.log("carrinho mudou", cart);
   }, [cart]);
@@ -110,6 +119,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         addCoffeeInCart,
         increaseQuantityCoffee,
         decreaseQuantityCoffee,
+        removeCoffeeFromCart,
       }}
     >
       {children}
