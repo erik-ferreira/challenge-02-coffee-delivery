@@ -1,6 +1,6 @@
 import { ShoppingCart, Package, Coffee, Timer } from "phosphor-react";
 
-export const listTopics = [
+export const listTopicsHome = [
   {
     id: 1,
     label: "Compra simples e segura",

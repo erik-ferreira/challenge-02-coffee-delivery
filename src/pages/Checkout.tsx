@@ -18,14 +18,11 @@ import { useCart } from "../contexts/CartContext";
 
 import { formatPrice } from "../utils/format";
 
-type TypePaymentOptions = "credit" | "debit" | "money";
-
 export function Checkout() {
   const navigate = useNavigate();
-  const { cart } = useCart();
+  const { cart, setAddress, typePaymentSelected, onUpdateTypePayment } =
+    useCart();
 
-  const [typePaymentSelected, setTypePaymentSelected] =
-    useState<TypePaymentOptions>("credit");
   const totalPriceItems = cart.reduce(
     (acc, coffee) => acc + coffee.price * coffee.quantity,
     0
@@ -39,13 +36,9 @@ export function Checkout() {
   const { handleSubmit } = addressForm;
 
   function handleSubmitFormAddress(data: any) {
-    console.log(data);
+    setAddress(data);
 
     navigate("/success");
-  }
-
-  function handleChangeTypePayment(typePayment: TypePaymentOptions) {
-    setTypePaymentSelected(typePayment);
   }
 
   return (
@@ -73,19 +66,19 @@ export function Checkout() {
               label="CARTÃO DE CRÉDITO"
               icon={CreditCard}
               isTypePaymentSelected={typePaymentSelected === "credit"}
-              onClick={() => handleChangeTypePayment("credit")}
+              onClick={() => onUpdateTypePayment("credit")}
             />
             <TypePayment
               label=" CARTÃO DE DÉBITO"
               icon={Money}
               isTypePaymentSelected={typePaymentSelected === "debit"}
-              onClick={() => handleChangeTypePayment("debit")}
+              onClick={() => onUpdateTypePayment("debit")}
             />
             <TypePayment
               label="DINHEIRO"
               icon={Bank}
               isTypePaymentSelected={typePaymentSelected === "money"}
-              onClick={() => handleChangeTypePayment("money")}
+              onClick={() => onUpdateTypePayment("money")}
             />
           </div>
         </div>

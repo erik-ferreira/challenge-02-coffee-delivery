@@ -4,7 +4,7 @@ import { CoffeeCard } from "../components/CoffeeCard";
 
 import coffeeBackground from "../assets/coffee.png";
 
-import { listTopics, listFilterCoffee, coffees } from "../utils/defaults";
+import { listTopicsHome, listFilterCoffee, coffees } from "../utils/defaults";
 
 export function Home() {
   return (
@@ -25,7 +25,7 @@ export function Home() {
               className="font-sans text-base leading-[1.3] text-brow-500 
             grid grid-cols-2 gap-5 mt-16"
             >
-              {listTopics.map((topic) => (
+              {listTopicsHome.map((topic) => (
                 <Topic key={topic.id} topic={topic} />
               ))}
             </ul>

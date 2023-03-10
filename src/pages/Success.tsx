@@ -2,9 +2,20 @@ import { CurrencyDollar, Timer, MapPin } from "phosphor-react";
 
 import { Topic } from "../components/Topic";
 
+import { useCart } from "../contexts/CartContext";
+
 import deliverSVG from "../assets/deliver.svg";
 
 export function Success() {
+  const { address, typePaymentSelected } = useCart();
+
+  const typePaymentOptions = {
+    credit: "Cartão de Crédito",
+    debit: "Cartão de Débito",
+    money: "Dinheiro",
+  };
+  const typePayment = typePaymentOptions[typePaymentSelected];
+
   const listTopics = [
     {
       id: 1,
@@ -13,9 +24,9 @@ export function Success() {
       label: (
         <div>
           Entrega em{" "}
-          <strong className="font-bold">Rua João Daniel Martinelli, 102</strong>
+          <strong className="font-bold">{`${address.street}, ${address.numberHouse}`}</strong>
           <br />
-          Farrapos - Porto Alegre,RS
+          {`${address.district} - ${address.city}, ${address.uf}`}
         </div>
       ),
     },
@@ -39,7 +50,7 @@ export function Success() {
         <div>
           Pagamento na entrega
           <br />
-          <strong className="font-bold">Cartão de Crédito</strong>
+          <strong className="font-bold">{typePayment}</strong>
         </div>
       ),
     },

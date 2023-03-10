@@ -7,14 +7,21 @@ import {
 } from "react";
 
 import { CoffeeProps } from "../components/CoffeeCard";
+import { AddressFormData } from "../components/FormAddress";
 
 interface CoffeeCartProps extends CoffeeProps {
   quantity: number;
 }
 
+type TypePaymentOptions = "credit" | "debit" | "money";
+
 interface CartContextData {
   cart: CoffeeCartProps[];
+  address: AddressFormData;
+  typePaymentSelected: TypePaymentOptions;
 
+  onUpdateTypePayment: (typePayment: TypePaymentOptions) => void;
+  setAddress: (address: AddressFormData) => void;
   addCoffeeInCart: (coffee: CoffeeCartProps) => void;
   increaseQuantityCoffee: (coffeeId: number) => void;
   decreaseQuantityCoffee: (coffeeId: number) => void;
@@ -29,6 +36,11 @@ interface CartContextProviderProps {
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
   const [cart, setCart] = useState<CoffeeCartProps[]>([]);
+  const [address, setAddress] = useState<AddressFormData>(
+    {} as AddressFormData
+  );
+  const [typePaymentSelected, setTypePaymentSelected] =
+    useState<TypePaymentOptions>("credit");
 
   function addCoffeeInCart(coffee: CoffeeCartProps) {
     // check if the coffee is already in the cart
@@ -108,6 +120,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     setCart(newListCoffeesInCart);
   }
 
+  function onUpdateTypePayment(typePayment: TypePaymentOptions) {
+    setTypePaymentSelected(typePayment);
+  }
+
   useEffect(() => {
     console.log("carrinho mudou", cart);
   }, [cart]);
@@ -116,6 +132,11 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     <CartContext.Provider
       value={{
         cart,
+        address,
+        typePaymentSelected,
+
+        onUpdateTypePayment,
+        setAddress,
         addCoffeeInCart,
         increaseQuantityCoffee,
         decreaseQuantityCoffee,
