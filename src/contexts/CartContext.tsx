@@ -15,18 +15,22 @@ interface CoffeeCartProps extends CoffeeProps {
 
 type TypePaymentOptions = "credit" | "debit" | "money";
 
+interface UpdateQuantityCoffeeProps {
+  coffeeId: number;
+  quantity: number;
+}
+
 interface CartContextData {
   cart: CoffeeCartProps[];
   address: AddressFormData;
   typePaymentSelected: TypePaymentOptions;
 
-  onUpdateTypePayment: (typePayment: TypePaymentOptions) => void;
-  setAddress: (address: AddressFormData) => void;
-  addCoffeeInCart: (coffee: CoffeeCartProps) => void;
-  increaseQuantityCoffee: (coffeeId: number) => void;
-  decreaseQuantityCoffee: (coffeeId: number) => void;
-  removeCoffeeFromCart: (coffeeId: number) => void;
   emptyCart: () => void;
+  setAddress: (address: AddressFormData) => void;
+  removeCoffeeFromCart: (coffeeId: number) => void;
+  addCoffeeInCart: (coffee: CoffeeCartProps) => void;
+  onUpdateTypePayment: (typePayment: TypePaymentOptions) => void;
+  updateQuantityCoffee: (data: UpdateQuantityCoffeeProps) => void;
 }
 
 export const CartContext = createContext({} as CartContextData);
@@ -84,7 +88,14 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     setCart([]);
   }
 
-  function increaseQuantityCoffee(coffeeId: number) {
+  function updateQuantityCoffee({
+    coffeeId,
+    quantity,
+  }: UpdateQuantityCoffeeProps) {
+    if (quantity <= 0) {
+      return;
+    }
+
     // check if the coffee id is already in the cart
     const coffeeExistsInCart = cart.find(
       (coffeeInCart) => coffeeInCart.id === coffeeId
@@ -92,36 +103,13 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
     if (!coffeeExistsInCart) {
       return alert(
-        "Você não pode aumentar a quantidade deste café pois ele não esta no carrinho!"
+        "Você não pode alterar a quantidade deste café pois ele não esta no carrinho!"
       );
     }
 
     const newCoffeesInCart = cart.map((coffeeInCart) => {
       if (coffeeInCart.id === coffeeId) {
-        return { ...coffeeInCart, quantity: coffeeInCart.quantity + 1 };
-      }
-
-      return coffeeInCart;
-    });
-
-    setCart(newCoffeesInCart);
-  }
-
-  function decreaseQuantityCoffee(coffeeId: number) {
-    // check if the coffee id is already in the cart
-    const coffeeExistsInCart = cart.find(
-      (coffeeInCart) => coffeeInCart.id === coffeeId
-    );
-
-    if (!coffeeExistsInCart) {
-      return alert(
-        "Você não pode diminuir a quantidade deste café pois ele não esta no carrinho!"
-      );
-    }
-
-    const newCoffeesInCart = cart.map((coffeeInCart) => {
-      if (coffeeInCart.id === coffeeId) {
-        return { ...coffeeInCart, quantity: coffeeInCart.quantity - 1 };
+        return { ...coffeeInCart, quantity };
       }
 
       return coffeeInCart;
@@ -159,13 +147,12 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         address,
         typePaymentSelected,
 
-        onUpdateTypePayment,
+        emptyCart,
         setAddress,
         addCoffeeInCart,
-        increaseQuantityCoffee,
-        decreaseQuantityCoffee,
+        onUpdateTypePayment,
+        updateQuantityCoffee,
         removeCoffeeFromCart,
-        emptyCart,
       }}
     >
       {children}

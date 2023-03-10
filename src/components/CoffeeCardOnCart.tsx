@@ -21,18 +21,20 @@ interface CoffeeCardOnCartProps {
 }
 
 export function CoffeeCardOnCart({ coffee }: CoffeeCardOnCartProps) {
-  const {
-    increaseQuantityCoffee,
-    decreaseQuantityCoffee,
-    removeCoffeeFromCart,
-  } = useCart();
+  const { updateQuantityCoffee, removeCoffeeFromCart } = useCart();
 
   function handleDecreaseQuantity() {
-    decreaseQuantityCoffee(coffee.id);
+    updateQuantityCoffee({
+      coffeeId: coffee.id,
+      quantity: coffee.quantity - 1,
+    });
   }
 
   function handleIncreaseQuantity() {
-    increaseQuantityCoffee(coffee.id);
+    updateQuantityCoffee({
+      coffeeId: coffee.id,
+      quantity: coffee.quantity + 1,
+    });
   }
 
   function handleRemoveCoffeeFromCart() {

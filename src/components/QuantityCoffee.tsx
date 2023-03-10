@@ -22,6 +22,7 @@ export function QuantityCoffee({
       {...rest}
     >
       <button
+        type="button"
         className="text-violet-600 enabled:hover:text-violet-900"
         disabled={disabledDecreaseQuantity}
         onClick={onDecreaseQuantity}
@@ -34,6 +35,7 @@ export function QuantityCoffee({
       </span>
 
       <button
+        type="button"
         className="text-violet-600 enabled:hover:text-violet-900"
         onClick={onIncreaseQuantity}
       >
