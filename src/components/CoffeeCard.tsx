@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { ShoppingCart } from "phosphor-react";
 
 import { Tag } from "./Tag";
@@ -38,6 +39,7 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
   function handleAddCoffeeInCart() {
     addCoffeeInCart({ ...coffee, quantity: quantityCoffee });
     setQuantityCoffee(1);
+    toast.success("Café adicionado ao carrinho com sucesso!");
   }
 
   return (

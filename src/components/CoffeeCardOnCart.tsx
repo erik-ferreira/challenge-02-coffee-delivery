@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { Trash, X } from "phosphor-react";
 import * as Dialog from "@radix-ui/react-dialog";
 
@@ -36,6 +37,7 @@ export function CoffeeCardOnCart({ coffee }: CoffeeCardOnCartProps) {
 
   function handleRemoveCoffeeFromCart() {
     removeCoffeeFromCart(coffee.id);
+    toast.info(`${coffee.name} foi removido com sucesso!`);
   }
 
   return (
