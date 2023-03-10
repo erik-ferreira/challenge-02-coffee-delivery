@@ -92,9 +92,11 @@ export function Checkout() {
 
       <SectionCheckout title="Cafés selecionados">
         <div className="bg-gray-100 p-10 w-[448px] rounded-tl-md rounded-tr-[44px] rounded-br-md rounded-bl-[44px] flex justify-center flex-col gap-6">
-          {cart.map((coffeeInCart) => (
-            <CoffeeCardOnCart key={coffeeInCart.id} coffee={coffeeInCart} />
-          ))}
+          <div className="h-[368px] overflow-y-scroll">
+            {cart.map((coffeeInCart) => (
+              <CoffeeCardOnCart key={coffeeInCart.id} coffee={coffeeInCart} />
+            ))}
+          </div>
 
           <div className="flex flex-col gap-3">
             <span className="font-sans text-sm text-brow-500 flex items-center justify-between">

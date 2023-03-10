@@ -68,7 +68,7 @@ export function CoffeeCardOnCart({ coffee }: CoffeeCardOnCartProps) {
         </span>
       </div>
 
-      <div className="h-[1px] w-full bg-gray-200" />
+      <div className="h-[1px] w-full bg-gray-200 my-6 last:mb-0" />
 
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black opacity-25 data-[state=open]:animate-overlayShow fixed inset-0" />
