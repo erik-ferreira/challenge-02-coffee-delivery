@@ -21,24 +21,24 @@ interface CoffeeCardOnCartProps {
 }
 
 export function CoffeeCardOnCart({ coffee }: CoffeeCardOnCartProps) {
-  const { updateQuantityCoffee, removeCoffeeFromCart } = useCart();
+  const { onUpdateQuantityCoffee, onRemoveCoffeeFromCart } = useCart();
 
   function handleDecreaseQuantity() {
-    updateQuantityCoffee({
+    onUpdateQuantityCoffee({
       coffeeId: coffee.id,
       quantity: coffee.quantity - 1,
     });
   }
 
   function handleIncreaseQuantity() {
-    updateQuantityCoffee({
+    onUpdateQuantityCoffee({
       coffeeId: coffee.id,
       quantity: coffee.quantity + 1,
     });
   }
 
   function handleRemoveCoffeeFromCart() {
-    removeCoffeeFromCart(coffee.id);
+    onRemoveCoffeeFromCart(coffee.id);
     toast.info(`${coffee.name} foi removido com sucesso!`);
   }
 
