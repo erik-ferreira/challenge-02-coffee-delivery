@@ -2,9 +2,10 @@ import {
   createContext,
   ReactNode,
   useContext,
-  useEffect,
   useState,
+  useReducer,
 } from "react";
+import produce from "immer";
 
 import { CoffeeProps } from "../components/CoffeeCard";
 import { AddressFormData } from "../components/FormAddress";
@@ -25,7 +26,7 @@ interface CartContextData {
   address: AddressFormData;
   typePaymentSelected: TypePaymentOptions;
 
-  emptyCart: () => void;
+  resetCart: () => void;
   setAddress: (address: AddressFormData) => void;
   removeCoffeeFromCart: (coffeeId: number) => void;
   addCoffeeInCart: (coffee: CoffeeCartProps) => void;
@@ -40,7 +41,77 @@ interface CartContextProviderProps {
 }
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cart, setCart] = useState<CoffeeCartProps[]>([]);
+  const [cart, dispatchCart] = useReducer(
+    (state: CoffeeCartProps[], action: any) => {
+      switch (action.type) {
+        case "ADD_COFFEE_IN_CART": {
+          const newListCoffeesInCart = produce(state, (draft) => {
+            // search coffee in cart
+            const indexCoffee = draft.findIndex(
+              (coffeeInCart) => coffeeInCart.id === action.payload.coffee.id
+            );
+
+            // if coffee is not in the cart, just add
+            // if the coffee is already in the cart, just increase the quantity
+            if (indexCoffee < 0) {
+              draft.push(action.payload.coffee);
+            } else {
+              draft[indexCoffee].quantity += action.payload.coffee.quantity;
+            }
+          });
+
+          localStorage.setItem(
+            "@coffee-delivery:cart-1.0.0",
+            JSON.stringify(newListCoffeesInCart)
+          );
+
+          return newListCoffeesInCart;
+        }
+
+        case "RESET_CART":
+          return [];
+
+        case "UPDATE_QUANTITY_ONE_COFFEE": {
+          const listCoffeesInCartUpdated = produce(state, (draft) => {
+            const indexCoffee = draft.findIndex(
+              (coffee) => coffee.id === action.payload.coffeeId
+            );
+
+            draft[indexCoffee].quantity = action.payload.quantity;
+          });
+
+          return listCoffeesInCartUpdated;
+        }
+
+        case "REMOVE_ONE_COFFEE_FROM_CART": {
+          const listCoffeesUpdated = produce(state, (draft) => {
+            const indexCoffee = draft.findIndex(
+              (coffee) => coffee.id === action.payload.coffeeId
+            );
+
+            draft.splice(indexCoffee, 1);
+          });
+
+          return listCoffeesUpdated;
+        }
+
+        default:
+          return state;
+      }
+    },
+    [],
+    (initialState) => {
+      const storedStateAsJSON = localStorage.getItem(
+        "@coffee-delivery:cart-1.0.0"
+      );
+
+      if (storedStateAsJSON) {
+        return JSON.parse(storedStateAsJSON);
+      }
+
+      return initialState;
+    }
+  );
   const [address, setAddress] = useState<AddressFormData>(
     {} as AddressFormData
   );
@@ -48,97 +119,45 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     useState<TypePaymentOptions>("credit");
 
   function addCoffeeInCart(coffee: CoffeeCartProps) {
-    // check if the coffee is already in the cart
-    const coffeeIsAlreadyInCart = cart.find(
-      (coffeeInCart) => coffeeInCart.id === coffee.id
-    );
-
-    if (coffeeIsAlreadyInCart) {
-      const newListCoffeesInCart = cart.map((coffeeInCart) => {
-        if (coffeeInCart.id === coffee.id) {
-          return {
-            ...coffeeInCart,
-            quantity: coffeeInCart.quantity + coffee.quantity,
-          };
-        }
-
-        return coffeeInCart;
-      });
-
-      localStorage.setItem(
-        "@coffee-delivery:cart-1.0.0",
-        JSON.stringify(newListCoffeesInCart)
-      );
-      setCart(newListCoffeesInCart);
-    } else {
-      setCart((prevState) => {
-        const newListCoffeesInCart = [...prevState, coffee];
-
-        localStorage.setItem(
-          "@coffee-delivery:cart-1.0.0",
-          JSON.stringify(newListCoffeesInCart)
-        );
-
-        return newListCoffeesInCart;
-      });
-    }
+    dispatchCart({
+      type: "ADD_COFFEE_IN_CART",
+      payload: {
+        coffee,
+      },
+    });
   }
 
-  function emptyCart() {
-    setCart([]);
+  function resetCart() {
+    dispatchCart({
+      type: "RESET_CART",
+    });
   }
 
-  function updateQuantityCoffee({
-    coffeeId,
-    quantity,
-  }: UpdateQuantityCoffeeProps) {
-    if (quantity <= 0) {
+  function updateQuantityCoffee(coffee: UpdateQuantityCoffeeProps) {
+    if (coffee.quantity <= 0) {
       return;
     }
 
-    // check if the coffee id is already in the cart
-    const coffeeExistsInCart = cart.find(
-      (coffeeInCart) => coffeeInCart.id === coffeeId
-    );
-
-    if (!coffeeExistsInCart) {
-      return alert(
-        "Você não pode alterar a quantidade deste café pois ele não esta no carrinho!"
-      );
-    }
-
-    const newCoffeesInCart = cart.map((coffeeInCart) => {
-      if (coffeeInCart.id === coffeeId) {
-        return { ...coffeeInCart, quantity };
-      }
-
-      return coffeeInCart;
+    dispatchCart({
+      type: "UPDATE_QUANTITY_ONE_COFFEE",
+      payload: {
+        ...coffee,
+      },
     });
-
-    setCart(newCoffeesInCart);
   }
 
   function removeCoffeeFromCart(coffeeId: number) {
-    const newListCoffeesInCart = cart.filter(
-      (coffeeInCart) => coffeeInCart.id !== coffeeId
-    );
-
-    setCart(newListCoffeesInCart);
+    dispatchCart({
+      type: "REMOVE_ONE_COFFEE_FROM_CART",
+      payload: {
+        coffeeId,
+      },
+    });
   }
 
   function onUpdateTypePayment(typePayment: TypePaymentOptions) {
     setTypePaymentSelected(typePayment);
   }
-
-  useEffect(() => {
-    const cartInStorage = localStorage.getItem("@coffee-delivery:cart-1.0.0");
-
-    if (cartInStorage) {
-      const cartParsed = JSON.parse(cartInStorage);
-
-      setCart(cartParsed);
-    }
-  }, []);
 
   return (
     <CartContext.Provider
@@ -147,7 +166,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         address,
         typePaymentSelected,
 
-        emptyCart,
+        resetCart,
         setAddress,
         addCoffeeInCart,
         onUpdateTypePayment,

@@ -24,7 +24,7 @@ export function Checkout() {
     setAddress,
     typePaymentSelected,
     onUpdateTypePayment,
-    emptyCart,
+    resetCart,
   } = useCart();
 
   const totalPriceItems = cart.reduce(
@@ -42,7 +42,7 @@ export function Checkout() {
   function handleSubmitFormAddress(data: any) {
     setAddress(data);
 
-    emptyCart();
+    resetCart();
 
     navigate("/success");
   }
