@@ -15,6 +15,7 @@ export interface CoffeeProps {
   name: string;
   description: string;
   price: number;
+  categories: string[];
 }
 
 interface CoffeeCardProps {
@@ -44,13 +45,21 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
 
   return (
     <div className="w-64 h-[310px] bg-gray-100 rounded-tl-md rounded-tr-[2.25rem] rounded-br-md rounded-bl-[2.25rem] flex flex-col items-center pb-5 px-6">
-      <header className="mb-4 flex flex-col items-center">
+      <header className="mb-4 flex flex-col items-center w-full">
         <img
           src={coffeeAmerican}
           className="w-[7.5rem] h-[7.5rem] -mt-5 mb-3"
         />
 
-        <Tag label="Tradicional" />
+        <div
+          className={`flex gap-2 ${
+            coffee.categories.length >= 3 ? "w-full overflow-x-scroll" : ""
+          }`}
+        >
+          {coffee.categories.map((category) => (
+            <Tag key={category}>{category}</Tag>
+          ))}
+        </div>
       </header>
 
       <main>

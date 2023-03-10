@@ -5,6 +5,7 @@ import {
   useState,
   useReducer,
 } from "react";
+import produce from "immer";
 
 import { AddressFormData } from "../components/FormAddress";
 import {
@@ -26,6 +27,7 @@ interface CartContextData {
   cart: CoffeeCartProps[];
   address: AddressFormData;
   typePaymentSelected: TypePaymentOptions;
+  categoriesCoffeesSelected: string[];
 
   onResetCart: () => void;
   setAddress: (address: AddressFormData) => void;
@@ -33,6 +35,7 @@ interface CartContextData {
   addCoffeeInCart: (coffee: CoffeeCartProps) => void;
   onUpdateTypePayment: (typePayment: TypePaymentOptions) => void;
   onUpdateQuantityCoffee: (data: UpdateQuantityCoffeeProps) => void;
+  onUpdateCategoriesCoffeesSelected: (category: string) => void;
 }
 
 export const CartContext = createContext({} as CartContextData);
@@ -58,6 +61,9 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   );
   const [typePaymentSelected, setTypePaymentSelected] =
     useState<TypePaymentOptions>("credit");
+  const [categoriesCoffeesSelected, setCategoriesCoffeesSelected] = useState<
+    string[]
+  >([]);
 
   function addCoffeeInCart(coffee: CoffeeCartProps) {
     dispatchCart(addCoffeeInCartAction(coffee));
@@ -83,12 +89,29 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     setTypePaymentSelected(typePayment);
   }
 
+  function onUpdateCategoriesCoffeesSelected(category: string) {
+    const newCategories = produce(categoriesCoffeesSelected, (draft) => {
+      const indexCategory = draft.findIndex(
+        (cat) => cat.toLowerCase() === category.toLowerCase()
+      );
+
+      if (indexCategory < 0) {
+        draft.push(category);
+      } else {
+        draft.splice(indexCategory, 1);
+      }
+    });
+
+    setCategoriesCoffeesSelected(newCategories);
+  }
+
   return (
     <CartContext.Provider
       value={{
         cart,
         address,
         typePaymentSelected,
+        categoriesCoffeesSelected,
 
         onResetCart,
         setAddress,
@@ -96,6 +119,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         onUpdateTypePayment,
         onUpdateQuantityCoffee,
         onRemoveCoffeeFromCart,
+        onUpdateCategoriesCoffeesSelected,
       }}
     >
       {children}

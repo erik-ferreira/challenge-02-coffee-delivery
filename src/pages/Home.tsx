@@ -1,12 +1,31 @@
 import { Tag } from "../components/Tag";
 import { Topic } from "../components/Topic";
-import { CoffeeCard } from "../components/CoffeeCard";
+import { CoffeeCard, CoffeeProps } from "../components/CoffeeCard";
+
+import { useCart } from "../contexts/CartContext";
 
 import coffeeBackground from "../assets/coffee.png";
 
 import { listTopicsHome, listFilterCoffee, coffees } from "../utils/defaults";
 
 export function Home() {
+  const { categoriesCoffeesSelected, onUpdateCategoriesCoffeesSelected } =
+    useCart();
+
+  let coffeesFilter: CoffeeProps[] = [];
+
+  coffees.forEach((coffee) => {
+    if (categoriesCoffeesSelected.length === 0) {
+      coffeesFilter = [...coffees];
+    } else {
+      categoriesCoffeesSelected.forEach((category) => {
+        if (coffee.categories.includes(category)) {
+          coffeesFilter.push(coffee);
+        }
+      });
+    }
+  });
+
   return (
     <>
       <div className="bg-img-opacity">
@@ -46,14 +65,33 @@ export function Home() {
           </h2>
 
           <div className="flex items-center gap-2">
-            {listFilterCoffee.map((typeCoffee) => (
-              <Tag key={typeCoffee} label={typeCoffee} variant="outline" />
-            ))}
+            {listFilterCoffee.map((typeCoffee) => {
+              const isSelectedTag =
+                categoriesCoffeesSelected.includes(typeCoffee);
+
+              return (
+                <Tag
+                  key={typeCoffee}
+                  variant="outline"
+                  asChild
+                  isSelected={isSelectedTag}
+                >
+                  <button
+                    type="button"
+                    onClick={() =>
+                      onUpdateCategoriesCoffeesSelected(typeCoffee)
+                    }
+                  >
+                    {typeCoffee}
+                  </button>
+                </Tag>
+              );
+            })}
           </div>
         </div>
 
         <div className="grid grid-cols-4 gap-10">
-          {coffees.map((coffee) => (
+          {coffeesFilter.map((coffee) => (
             <CoffeeCard key={coffee.id} coffee={coffee} />
           ))}
         </div>
