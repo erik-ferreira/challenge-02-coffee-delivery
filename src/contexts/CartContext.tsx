@@ -61,9 +61,22 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         return coffeeInCart;
       });
 
+      localStorage.setItem(
+        "@coffee-delivery:cart-1.0.0",
+        JSON.stringify(newListCoffeesInCart)
+      );
       setCart(newListCoffeesInCart);
     } else {
-      setCart((prevState) => [...prevState, coffee]);
+      setCart((prevState) => {
+        const newListCoffeesInCart = [...prevState, coffee];
+
+        localStorage.setItem(
+          "@coffee-delivery:cart-1.0.0",
+          JSON.stringify(newListCoffeesInCart)
+        );
+
+        return newListCoffeesInCart;
+      });
     }
   }
 
@@ -130,8 +143,14 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   }
 
   useEffect(() => {
-    console.log("carrinho mudou", cart);
-  }, [cart]);
+    const cartInStorage = localStorage.getItem("@coffee-delivery:cart-1.0.0");
+
+    if (cartInStorage) {
+      const cartParsed = JSON.parse(cartInStorage);
+
+      setCart(cartParsed);
+    }
+  }, []);
 
   return (
     <CartContext.Provider

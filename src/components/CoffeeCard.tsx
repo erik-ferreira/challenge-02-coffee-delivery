@@ -37,6 +37,7 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
 
   function handleAddCoffeeInCart() {
     addCoffeeInCart({ ...coffee, quantity: quantityCoffee });
+    setQuantityCoffee(1);
   }
 
   return (
