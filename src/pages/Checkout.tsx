@@ -20,8 +20,13 @@ import { formatPrice } from "../utils/format";
 
 export function Checkout() {
   const navigate = useNavigate();
-  const { cart, setAddress, typePaymentSelected, onUpdateTypePayment } =
-    useCart();
+  const {
+    cart,
+    setAddress,
+    typePaymentSelected,
+    onUpdateTypePayment,
+    emptyCart,
+  } = useCart();
 
   const totalPriceItems = cart.reduce(
     (acc, coffee) => acc + coffee.price * coffee.quantity,
@@ -37,6 +42,8 @@ export function Checkout() {
 
   function handleSubmitFormAddress(data: any) {
     setAddress(data);
+
+    emptyCart();
 
     navigate("/success");
   }

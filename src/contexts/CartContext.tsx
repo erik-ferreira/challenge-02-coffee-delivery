@@ -26,6 +26,7 @@ interface CartContextData {
   increaseQuantityCoffee: (coffeeId: number) => void;
   decreaseQuantityCoffee: (coffeeId: number) => void;
   removeCoffeeFromCart: (coffeeId: number) => void;
+  emptyCart: () => void;
 }
 
 export const CartContext = createContext({} as CartContextData);
@@ -64,6 +65,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     } else {
       setCart((prevState) => [...prevState, coffee]);
     }
+  }
+
+  function emptyCart() {
+    setCart([]);
   }
 
   function increaseQuantityCoffee(coffeeId: number) {
@@ -141,6 +146,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         increaseQuantityCoffee,
         decreaseQuantityCoffee,
         removeCoffeeFromCart,
+        emptyCart,
       }}
     >
       {children}
