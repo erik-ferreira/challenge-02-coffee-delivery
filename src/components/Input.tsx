@@ -19,7 +19,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ isOptional, variantWidth = "normal", error, ...rest }, ref) => {
     {
       return (
-        <div className={widthsInput[variantWidth]}>
+        <div
+          className={`${widthsInput[variantWidth]} max-[1170px]:flex-1 max-[500px]:w-full`}
+        >
           <div
             className={`h-11 bg-gray-150 flex items-center rounded border border-solid ${
               error ? "border-red-500" : "border-gray-200"

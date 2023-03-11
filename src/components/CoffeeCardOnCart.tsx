@@ -44,10 +44,10 @@ export function CoffeeCardOnCart({ coffee }: CoffeeCardOnCartProps) {
 
   return (
     <Dialog.Root>
-      <div className="flex gap-5">
+      <div className="flex gap-5 max-[450px]:flex-col max-[450px]:items-center">
         <img src={americanPNG} className="w-16 h-16" />
 
-        <div className="flex gap-2 flex-col">
+        <div className="flex gap-2 flex-col max-[450px]:items-center">
           <span className="font-sans text-base text-brow-600">
             {coffee.name}
           </span>
@@ -67,7 +67,7 @@ export function CoffeeCardOnCart({ coffee }: CoffeeCardOnCartProps) {
           </div>
         </div>
 
-        <span className="font-sans text-base font-bold text-brow-500">
+        <span className="font-sans text-base font-bold text-brow-500 max-[1170px]:ml-auto max-[1170px]:self-center max-[450px]:ml-0">
           R$ {formatPrice(coffee.price)}
         </span>
       </div>

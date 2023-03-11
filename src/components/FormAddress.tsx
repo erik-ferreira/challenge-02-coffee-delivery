@@ -48,7 +48,7 @@ export function FormAddress() {
           error={errors.street?.message}
         />
 
-        <div className="flex gap-3">
+        <div className="flex gap-3 max-[500px]:flex-col">
           <Input
             placeholder="Número"
             {...register("numberHouse")}
@@ -63,7 +63,7 @@ export function FormAddress() {
           />
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex gap-3 max-[500px]:flex-col">
           <Input
             placeholder="Bairro"
             {...register("district")}

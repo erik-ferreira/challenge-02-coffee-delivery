@@ -54,7 +54,7 @@ export function Checkout() {
 
   return (
     <form
-      className="flex gap-8 max-w-[1120px] w-[90%] mx-auto"
+      className="flex gap-8 max-w-[1120px] w-[90%] mx-auto max-[1170px]:flex-col"
       onSubmit={handleSubmit(handleSubmitFormAddress)}
     >
       <SectionCheckout title="Complete seu pedido">
@@ -72,7 +72,7 @@ export function Checkout() {
             O pagamento é feito na entrega. Escolha a forma que deseja pagar
           </p>
 
-          <div className="flex gap-3 mt-8">
+          <div className="flex gap-3 mt-8 max-[1170px]:justify-between max-[625px]:flex-col">
             <TypePayment
               label="CARTÃO DE CRÉDITO"
               icon={CreditCard}
@@ -96,7 +96,7 @@ export function Checkout() {
       </SectionCheckout>
 
       <SectionCheckout title="Cafés selecionados">
-        <div className="bg-gray-100 p-10 w-[448px] rounded-tl-md rounded-tr-[44px] rounded-br-md rounded-bl-[44px] flex justify-center flex-col gap-6">
+        <div className="bg-gray-100 p-10 w-[448px] rounded-tl-md rounded-tr-[44px] rounded-br-md rounded-bl-[44px] flex justify-center flex-col gap-6 max-[1170px]:w-full">
           {cart.length === 0 ? (
             <strong className="font-cursive font-extrabold text-[1.5rem] text-slate-600 text-center">
               Adicione alguns dos nossos produtos no carrinho para finalizar o
@@ -129,7 +129,11 @@ export function Checkout() {
             </span>
           </div>
 
-          <Button type="submit" label="Confirmar Pedido" />
+          <Button
+            type="submit"
+            label="Confirmar Pedido"
+            className="max-[1170px]:mx-auto max-[520px]:w-[90%]"
+          />
         </div>
       </SectionCheckout>
     </form>
