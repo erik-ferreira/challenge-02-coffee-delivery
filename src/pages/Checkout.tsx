@@ -92,11 +92,20 @@ export function Checkout() {
 
       <SectionCheckout title="Cafés selecionados">
         <div className="bg-gray-100 p-10 w-[448px] rounded-tl-md rounded-tr-[44px] rounded-br-md rounded-bl-[44px] flex justify-center flex-col gap-6">
-          <div className="h-[368px] overflow-y-scroll">
-            {cart.map((coffeeInCart) => (
-              <CoffeeCardOnCart key={coffeeInCart.id} coffee={coffeeInCart} />
-            ))}
-          </div>
+          {cart.length === 0 ? (
+            <strong className="font-cursive font-extrabold text-[1.5rem] text-slate-600 text-center">
+              Adicione alguns dos nossos produtos no carrinho para finalizar o
+              pedido.
+            </strong>
+          ) : (
+            <div
+              className={`${cart.length >= 4 && "h-[368px] overflow-y-scroll"}`}
+            >
+              {cart.map((coffeeInCart) => (
+                <CoffeeCardOnCart key={coffeeInCart.id} coffee={coffeeInCart} />
+              ))}
+            </div>
+          )}
 
           <div className="flex flex-col gap-3">
             <span className="font-sans text-sm text-brow-500 flex items-center justify-between">
