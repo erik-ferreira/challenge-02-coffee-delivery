@@ -25,12 +25,12 @@ type TypePaymentOptions = "credit" | "debit" | "money";
 
 interface CartContextData {
   cart: CoffeeCartProps[];
-  address: AddressFormData;
+  address: AddressFormData | null;
   typePaymentSelected: TypePaymentOptions;
   categoriesCoffeesSelected: string[];
 
   onResetCart: () => void;
-  setAddress: (address: AddressFormData) => void;
+  setAddress: (address: AddressFormData | null) => void;
   onRemoveCoffeeFromCart: (coffeeId: number) => void;
   addCoffeeInCart: (coffee: CoffeeCartProps) => void;
   onUpdateTypePayment: (typePayment: TypePaymentOptions) => void;
@@ -56,9 +56,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
     return initialState;
   });
-  const [address, setAddress] = useState<AddressFormData>(
-    {} as AddressFormData
-  );
+  const [address, setAddress] = useState<AddressFormData | null>(null);
   const [typePaymentSelected, setTypePaymentSelected] =
     useState<TypePaymentOptions>("credit");
   const [categoriesCoffeesSelected, setCategoriesCoffeesSelected] = useState<

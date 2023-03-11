@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
@@ -40,6 +41,10 @@ export function Checkout() {
   const { handleSubmit } = addressForm;
 
   function handleSubmitFormAddress(data: any) {
+    if (cart.length === 0) {
+      return toast.info("Adicione um produto no carrinho.");
+    }
+
     setAddress(data);
 
     onResetCart();

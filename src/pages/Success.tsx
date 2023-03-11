@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import { CurrencyDollar, Timer, MapPin } from "phosphor-react";
 
 import { Topic } from "../components/Topic";
@@ -7,7 +9,7 @@ import { useCart } from "../contexts/CartContext";
 import deliverSVG from "../assets/deliver.svg";
 
 export function Success() {
-  const { address, typePaymentSelected } = useCart();
+  const { address, typePaymentSelected, setAddress } = useCart();
 
   const typePaymentOptions = {
     credit: "Cartão de Crédito",
@@ -24,9 +26,9 @@ export function Success() {
       label: (
         <div>
           Entrega em{" "}
-          <strong className="font-bold">{`${address.street}, ${address.numberHouse}`}</strong>
+          <strong className="font-bold">{`${address?.street}, ${address?.numberHouse}`}</strong>
           <br />
-          {`${address.district} - ${address.city}, ${address.uf}`}
+          {`${address?.district} - ${address?.city}, ${address?.uf}`}
         </div>
       ),
     },
@@ -56,7 +58,15 @@ export function Success() {
     },
   ];
 
-  return (
+  useEffect(() => {
+    return () => {
+      setAddress(null);
+    };
+  }, []);
+
+  return !address ? (
+    <Navigate to="/" />
+  ) : (
     <div className="max-w-[1120px] w-[90%] mx-auto">
       <h1 className="font-cursive font-extrabold text-[2rem] text-yellow-600">
         Uhu! Pedido confirmado
