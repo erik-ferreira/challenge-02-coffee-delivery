@@ -33,8 +33,8 @@ module.exports = {
           50: "#FAFAFA",
         },
       },
-      backgroundImage: {
-        "img-opacity": "url(./src/assets/background.svg)",
+      gridTemplateColumns: {
+        "coffees-responsive": "repeat(auto-fit, minmax(250px, 1fr))",
       },
     },
   },

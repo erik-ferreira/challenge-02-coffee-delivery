@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { HTMLAttributes, useState } from "react";
 import { toast } from "react-toastify";
 import { ShoppingCart } from "phosphor-react";
 
@@ -18,11 +18,11 @@ export interface CoffeeProps {
   categories: string[];
 }
 
-interface CoffeeCardProps {
+interface CoffeeCardProps extends HTMLAttributes<HTMLDivElement> {
   coffee: CoffeeProps;
 }
 
-export function CoffeeCard({ coffee }: CoffeeCardProps) {
+export function CoffeeCard({ coffee, className, ...rest }: CoffeeCardProps) {
   const { addCoffeeInCart } = useCart();
 
   const [quantityCoffee, setQuantityCoffee] = useState(1);
@@ -44,7 +44,10 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
   }
 
   return (
-    <div className="w-64 h-[310px] bg-gray-100 rounded-tl-md rounded-tr-[2.25rem] rounded-br-md rounded-bl-[2.25rem] flex flex-col items-center pb-5 px-6">
+    <div
+      className={`w-64 h-[310px] bg-gray-100 rounded-tl-md rounded-tr-[2.25rem] rounded-br-md rounded-bl-[2.25rem] flex flex-col items-center pb-5 px-6 ${className}`}
+      {...rest}
+    >
       <header className="mb-4 flex flex-col items-center w-full">
         <img
           src={coffeeAmerican}

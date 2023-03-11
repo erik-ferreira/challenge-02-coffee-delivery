@@ -11,13 +11,13 @@ interface TopicComponentProps extends LiHTMLAttributes<HTMLLIElement> {
   topic: TopicProps;
 }
 
-export function Topic({ topic, ...rest }: TopicComponentProps) {
+export function Topic({ topic, className, ...rest }: TopicComponentProps) {
   const { icon: Icon, label, bgColor } = topic;
 
   return (
-    <li className="flex items-center gap-3" {...rest}>
+    <li className={`flex items-center gap-3 ${className}`} {...rest}>
       <div
-        className={`w-8 h-8 rounded-full flex items-center justify-center ${bgColor}`}
+        className={`min-w-[2rem] min-h-[2rem] rounded-full flex items-center justify-center ${bgColor}`}
       >
         <Icon size={20} weight="fill" className="fill-white" />
       </div>

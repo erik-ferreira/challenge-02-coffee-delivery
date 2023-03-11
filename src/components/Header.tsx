@@ -12,7 +12,7 @@ export function Header() {
 
   return (
     <header className="py-8">
-      <div className="max-w-[1120px] w-[90%] mx-auto flex items-center justify-between">
+      <div className="max-w-[1120px] w-[90%] mx-auto flex items-center justify-between max-[375px]:flex-col gap-4">
         <Link to="/">
           <img src={logoPng} />
         </Link>
