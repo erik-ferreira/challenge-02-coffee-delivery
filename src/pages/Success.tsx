@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { CurrencyDollar, Timer, MapPin } from "phosphor-react";
 
@@ -58,17 +57,11 @@ export function Success() {
     },
   ];
 
-  useEffect(() => {
-    return () => {
-      setAddress(null);
-    };
-  }, []);
-
   return !address ? (
     <Navigate to="/" />
   ) : (
-    <div className="max-w-[1120px] w-[90%] mx-auto">
-      <h1 className="font-cursive font-extrabold text-[2rem] text-yellow-600">
+    <div className="max-w-[1120px] w-[90%] mx-auto max-[900px]:flex max-[900px]:flex-col max-[900px]:items-center">
+      <h1 className="font-cursive font-extrabold text-[2rem] text-yellow-600 max-[400px]:text-center">
         Uhu! Pedido confirmado
       </h1>
 
@@ -76,11 +69,11 @@ export function Success() {
         Agora é só aguardar que logo o café chegará até você
       </p>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between max-[900px]:flex-col">
         <div
           className="w-[32rem] p-[1px] flex items-center justify-center 
         rounded-tl-md rounded-tr-[36px] rounded-br-md rounded-bl-[36px] 
-        bg-gradient-to-t from-yellow-500 to-violet-600"
+        bg-gradient-to-t from-yellow-500 to-violet-600 max-[900px]:w-full"
         >
           <ul
             className="w-full h-full font-sans text-base leading-[1.3] text-brow-500 
