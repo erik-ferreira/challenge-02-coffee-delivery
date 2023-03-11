@@ -14,7 +14,7 @@ export function App() {
         <Router />
       </BrowserRouter>
 
-      <ToastContainer autoClose={2000} />
+      <ToastContainer autoClose={2000} position="bottom-right" />
     </CartContextProvider>
   );
 }
