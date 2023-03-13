@@ -139,3 +139,35 @@ export const coffees = [
     categories: ["Especial", "Alcoólico"],
   },
 ];
+
+export const ufs = {
+  acre: "AC",
+  alagoas: "AL",
+  amapa: "AP",
+  amazonas: "AM",
+  bahia: "BA",
+  ceara: "CE",
+  espirito_santo: "ES",
+  goias: "GO",
+  maranhao: "MA",
+  mato_grosso: "MT",
+  mato_grosso_do_sul: "MS",
+  minas_gerais: "MG",
+  para: "PA",
+  paraiba: "PB",
+  parana: "PR",
+  pernambuco: "PE",
+  piaui: "PI",
+  rio_de_Janeiro: "RJ",
+  rio_grande_do_norte: "RN",
+  rio_grande_do_sul: "RS",
+  rondonia: "RO",
+  roraima: "RR",
+  santa_catarina: "SC",
+  sao_paulo: "SP",
+  sergipe: "SE",
+  tocantins: "TO",
+  distrito_federal: "DF",
+};
+
+export type KeysUfs = keyof typeof ufs;
